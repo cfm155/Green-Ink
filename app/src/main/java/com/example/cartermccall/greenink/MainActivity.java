@@ -8,13 +8,21 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button tutorialButton;
+    private Button tutorialButton, newGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        newGame = (Button) findViewById(R.id.new_button);
+        newGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), NewGameActivity.class);
+                startActivity(intent);
+            }
+        });
         tutorialButton = (Button) findViewById(R.id.tutorial_button);
         tutorialButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,9 +2,9 @@ package com.example.cartermccall.greenink;
 
 public class GameState {
 
-    private int year, month, cID;
-    private boolean game, pollutionThreshold, chickenDinner;//when game is set to false by any means,
-    private Country country;                              //the game will be over.
+    private static int year, month, cID;
+    private static boolean game, pollutionThreshold, chickenDinner;//when game is set to false by any means,
+    private static Country country;                              //the game will be over.
     private String lossCondition;
 
     //Buildings - needs balancing and realism checks on the numbers.  More buildings  c - cost, q - quantity
@@ -14,7 +14,7 @@ public class GameState {
     private Building waterTurbine = new Building(6, -1, 35, 260, 0);
     //
 
-    public void gameStart(int cID){
+    public static void gameStart(int cID){
         setMonth(0);
         setYear(0);
         setcID(cID);
@@ -37,7 +37,7 @@ public class GameState {
         }
     }
 
-    public void advanceTurn() {
+    public static void advanceTurn() {
         //advances turn and checks values for game state
 
         //advances the date and checks for win condition
@@ -80,23 +80,23 @@ public class GameState {
         return year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public static void setYear(int year) {
+        GameState.year = year;
     }
 
     public int getMonth() {
         return month;
     }
 
-    public void setMonth(int month) {
-        this.month = month;
+    public static void setMonth(int month) {
+        GameState.month = month;
     }
 
     public int getcID() {
         return cID;
     }
 
-    public void setcID(int cID) {
-        this.country = country;
+    public static void setcID(int cID) {
+        GameState.country = country;
     }
 }
