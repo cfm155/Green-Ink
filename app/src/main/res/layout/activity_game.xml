@@ -21,14 +21,14 @@
         android:id="@+id/game_map"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="32dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/next_turn_button"
+        android:layout_marginBottom="150dp"
+        android:background="@color/Ocean"
+        app:layout_constraintBottom_toTopOf="@+id/stats_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:srcCompat="@drawable/map" />
+        app:srcCompat="@drawable/map_filled" />
 
     <Button
         android:id="@+id/next_turn_button"
@@ -38,4 +38,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/stats_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Stats"
+        app:layout_constraintBottom_toTopOf="@+id/next_turn_button"
+        app:layout_constraintEnd_toStartOf="@+id/upgrades_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/upgrades_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Upgrades"
+        app:layout_constraintBottom_toTopOf="@+id/next_turn_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/stats_button" />
 </android.support.constraint.ConstraintLayout>
