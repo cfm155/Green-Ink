@@ -1,11 +1,16 @@
 package com.example.cartermccall.greenink;
 
-public class GameState {
+import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
+
+public class GameState extends AppCompatActivity {
 
     private static int year, month, cID;
     private static boolean game, pollutionThreshold, chickenDinner;//when game is set to false by any means,
     private static Country country;                              //the game will be over.
     private String lossCondition;
+    private ImageView map = (ImageView) findViewById(R.id.game_map);
 
     //Buildings - needs balancing and realism checks on the numbers.  More buildings  c - cost, q - quantity
     private Building windFarm = new Building(5, -2, 15, 160, 0);
@@ -14,10 +19,10 @@ public class GameState {
     private Building waterTurbine = new Building(6, -1, 35, 260, 0);
     //
 
-    public static void gameStart(int cID){
-        setMonth(0);
-        setYear(0);
-        setcID(cID);
+    public static Country gameStart(int cID){
+        month = 0;
+        year = 0;
+        cID = 0;
         game = true;
         pollutionThreshold = false;
 
@@ -27,13 +32,13 @@ public class GameState {
         switch (cID) {
             case 0://USA
                 country = new Country(10, 500, 25, 0, 70);
-                break;
+                return country;
             case 1://Brazil
                 country = new Country(20, 350, 20, 0, 80);
-                break;
-            case 2://Third world country
+                return country;
+            default://Third world country
                 country = new Country(15, 200, 15, 0, 85);
-                break;
+                return country;
         }
     }
 

@@ -11,6 +11,7 @@ import static com.example.cartermccall.greenink.GameState.gameStart;
 public class NewGameActivity extends AppCompatActivity {
 
     private Button backButton, easyButton, mediumButton, hardButton;
+    public Country country;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,8 +21,8 @@ public class NewGameActivity extends AppCompatActivity {
         easyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameStart(0);
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
+                intent.putExtra("countryID", 0);
                 startActivity(intent);
             }
         });
@@ -30,8 +31,8 @@ public class NewGameActivity extends AppCompatActivity {
         mediumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameStart(1);
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
+                intent.putExtra("countryID", 1);
                 startActivity(intent);
             }
         });
@@ -40,8 +41,8 @@ public class NewGameActivity extends AppCompatActivity {
         hardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gameStart(2);
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
+                intent.putExtra("countryID", 2);
                 startActivity(intent);
             }
         });
