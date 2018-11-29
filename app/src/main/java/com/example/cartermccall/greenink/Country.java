@@ -3,7 +3,7 @@ package com.example.cartermccall.greenink;
 public class Country {
 
     private int pollution, money, income, energy;
-    private float temperature;
+    private int temperature;
 
     Country(int p, int m, int i, int e, int t){
         setPollution(p);
@@ -45,11 +45,11 @@ public class Country {
         this.energy = energy;
     }
 
-    public float getTemperature() {
+    public int getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(float temperature) {
+    public void setTemperature(int temperature) {
         this.temperature = temperature;
     }
 }
