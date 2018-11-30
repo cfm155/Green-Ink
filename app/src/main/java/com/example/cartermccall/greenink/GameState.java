@@ -1,13 +1,15 @@
 package com.example.cartermccall.greenink;
 
-import android.content.Context;
-import android.widget.Toast;
+import android.graphics.Color;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class GameState {
+public class GameState extends AppCompatActivity {
 
-    private int year, month, cID;
-    private boolean game, pollutionThreshold, chickenDinner;//when game is set to false by any means,
-    private Country country;                              //the game will be over.
+    public static int year, month, dangerCount;
+    public static boolean game = false, chickenDinner;//when game is set to false by any means,
+    public static Country country;                              //the game will be over.
     private String lossCondition;
 
     //Buildings - needs balancing and realism checks on the numbers.  More buildings  c - cost, q - quantity
@@ -32,12 +34,11 @@ public class GameState {
     private boolean policyBuildingLimit2 = false;
     //
 
-    public void gameStart(int cID){
-        setMonth(0);
-        setYear(0);
-        setcID(cID);
+    public static Country gameStart(int cID){
+        month = 1;
+        year = 1;
         game = true;
-        pollutionThreshold = false;
+        dangerCount = 21;
 
         //cID is the id by which the country is identified
         //country constructor needs starting values for:
@@ -46,45 +47,55 @@ public class GameState {
         //may be able to move these into difficulty select buttons
         switch (cID) {
             case 0://USA
-                country = new Country(10, 500, 25, 0, 70, 10);
+                country = new Country();
+                country.setPollution(10);
+                country.setTemperature(70);
+                country.setMoney(500);
+                country.setEnergy(0);
+                country.setIncome(25);
+                return country;
             case 1://Brazil
-                country = new Country(20, 350, 20, 0, 80, 8);
-            case 2://Third world country
-                country = new Country(15, 200, 15, 0, 85, 6);
+                country = new Country();
+                country.setPollution(20);
+                country.setTemperature(80);
+                country.setMoney(350);
+                country.setEnergy(0);
+                country.setIncome(20);
+                return country;
+            default://Third world country
+                country = new Country();
+                country.setPollution(15);
+                country.setTemperature(85);
+                country.setMoney(200);
+                country.setEnergy(0);
+                country.setIncome(15);
+                return country;
         }
     }
 
-    public void advanceTurn() {
+    public static void advanceTurn() {
         //advances turn and checks values for game state
 
         //advances the date and checks for win condition
-        if (month < 11) {
-            setMonth(month++);
+        if (month < 12) {
+            month++;
         }
         else {
-            setMonth(0);
-            if (year < 9){
-                setYear(year++);
-                        //exponentially increases energy needs based on chosen country
-                country.setEnergyNeed(country.energyNeedCalc(cID, country.getEnergy()));
+            month = 1;
+            if (year < 10){
+                year++;
             }
             else if (year == 9 && month == 11){
                 chickenDinner = true;
                 game = false;
             }
         }
-
-        //Country data values calculations
+      //country pollution and temperature calculation
+        country.setPollution(country.getPollution() + 5);
+        //Country data values calculations - INCOMPLETE, needs income value to be adjusted by onPurchase building action
         //energy value is also adjusted with on purchase action
-        if (country.getPollution() > 70){      //checks if pollution is above the threshold (70) for
-            pollutionThreshold = true;         // increasing average temperature
-        }
-        else{
-            pollutionThreshold = false;
-        }
-        // If the pollution threshold (70) is crossed, increases the temperature by pollution per year or 1/12 pollution per month
-        if (pollutionThreshold){
-            country.setTemperature(country.getTemperature() + ((country.getPollution() - 70) / 12));
+        if (country.getPollution() > 20){      //checks if pollution is above the threshold for
+            country.setTemperature(country.getTemperature() + country.getPollution()/20);         // increasing average temperature
         }
 
         if (country.getTemperature() >= 100){
@@ -94,6 +105,13 @@ public class GameState {
 
         country.setMoney(country.getMoney() + country.getIncome()); //adds income to treasury
 
+        if(country.getTemperature() > 109){
+            chickenDinner = true;
+            game = false;
+        }
+        if(country.getTemperature() > 99){
+            dangerCount--;
+        }
 
         if (!game){                 //The game ends after a turn when game is set to false,
             if (chickenDinner){//what happens when you win
@@ -141,7 +159,7 @@ public class GameState {
                 }
         }
     }
-
+/*
     public void purchaseBuilding(int building) {
         if (country.getBuildingCount() < country.getBuildingLimit()) {
             Building construction = new Building(0, 0, 0, 0, 0);
@@ -241,4 +259,5 @@ public class GameState {
     public void setcID(int cID) {
         this.country = country;
     }
+*/
 }
