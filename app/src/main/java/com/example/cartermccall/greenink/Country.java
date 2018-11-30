@@ -1,17 +1,14 @@
 package com.example.cartermccall.greenink;
 
-public class Country {
+import java.io.Serializable;
+
+import io.realm.RealmObject;
+
+public class Country extends RealmObject implements Serializable {
 
     private int pollution, money, income, energy;
     private int temperature;
 
-    Country(int p, int m, int i, int e, int t){
-        setPollution(p);
-        setEnergy(e);
-        setIncome(i);
-        setMoney(m);
-        setTemperature(t);
-    }
 
     public int getPollution() {
         return pollution;
@@ -52,5 +49,6 @@ public class Country {
     public void setTemperature(int temperature) {
         this.temperature = temperature;
     }
+
 }
 

@@ -6,9 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button tutorialButton, newGame;
+    private Button tutorialButton, newGame, resumeGame;
+    public static boolean save = false;
+    private Country country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +28,28 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        resumeGame = (Button) findViewById(R.id.resume_button);
+        resumeGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Realm realm = Realm.getDefaultInstance();
+                RealmResults<SaveState> saves= realm.where(SaveState.class).findAll();
+                if(saves.size() != 0) {
+                    save = true;
+                    SaveState load = realm.copyFromRealm(realm.where(SaveState.class).findFirst());
+                    GameState.month = load.getMonth();
+                    GameState.year = load.getYear();
+                    GameState.dangerCount = load.getDangerCount();
+                    GameState.game = true;
+                    country = load.getCountry();
+                    Intent intent = new Intent(v.getContext(), GameActivity.class);
+                    intent.putExtra("country", country);
+                    startActivity(intent);
+                }
+            }
+        });
+
         tutorialButton = (Button) findViewById(R.id.tutorial_button);
         tutorialButton.setOnClickListener(new View.OnClickListener() {
             @Override
