@@ -5,10 +5,21 @@ public class Building {
     private int energyOutput, pollutionOutput, incomeOutput, cost, quantity;
     private boolean isOwned;
 
-    Building(int e, int p, int i, int c, int q){
+    public Building(int e, int p, int i, int c, int q){
         setEnergyOutput(e);
         setIncomeOutput(i);
         setPollutionOutput(p);
+    }
+
+    public int[] returnValues(){
+        int list[] = {energyOutput, pollutionOutput, incomeOutput, cost, quantity};
+        return list;
+    }
+
+    //called by purchase action, which should also update country stats
+    public int[] purchaseBuilding(){
+        this.quantity += 1;
+        return returnValues();
     }
 
     public int getEnergyOutput() {
