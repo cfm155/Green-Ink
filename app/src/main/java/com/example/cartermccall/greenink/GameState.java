@@ -10,7 +10,7 @@ public class GameState extends AppCompatActivity {
     public static int year, month, dangerCount;
     public static boolean game = false, chickenDinner;//when game is set to false by any means,
     public static Country country;                              //the game will be over.
-    private String lossCondition;
+    private static String lossCondition;
 
     //Buildings - needs balancing and realism checks on the numbers.  More buildings  c - cost, q - quantity
     //Green
@@ -161,7 +161,7 @@ public class GameState extends AppCompatActivity {
         }
     }
 
-/*    public void purchaseBuilding(int building) {
+    public void purchaseBuilding(int building) {
         if (country.getBuildingCount() < country.getBuildingLimit()) {
             Building construction = new Building(0, 0, 0, 0, 0);
             for (int i = 0; i < 2; i++) {
@@ -236,7 +236,6 @@ public class GameState extends AppCompatActivity {
             //already at max buildings toast
         }
     }
-*/
 
     public int getYear() {
         return year;

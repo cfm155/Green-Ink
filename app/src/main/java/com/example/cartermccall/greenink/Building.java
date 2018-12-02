@@ -11,17 +11,6 @@ public class Building {
         setPollutionOutput(p);
     }
 
-    public int[] returnValues(){
-        int list[] = {energyOutput, pollutionOutput, incomeOutput, cost, quantity};
-        return list;
-    }
-
-    //called by purchase action, which should also update country stats
-    public int[] purchaseBuilding(){
-        this.quantity += 1;
-        return returnValues();
-    }
-
     public int getEnergyOutput() {
         return energyOutput;
     }
