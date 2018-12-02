@@ -43,7 +43,7 @@ public class GameActivity extends AppCompatActivity {
 
         map = (ImageView) findViewById(R.id.game_map);
         red = getRed();
-        green = getGreen();
+        green = Color.parseColor("#00A14B");
         orange = getOrange();
 
         country = (Country) getIntent().getSerializableExtra("country");
@@ -142,6 +142,7 @@ public class GameActivity extends AppCompatActivity {
 
     public int getGreen(){
         return getResources().getColor(android.R.color.holo_green_dark);
+        // 00A14B
     }
 
     public int adjustAlpha(int color, float factor) {
