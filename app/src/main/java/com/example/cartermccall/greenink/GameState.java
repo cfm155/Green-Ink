@@ -18,8 +18,8 @@ public class GameState extends AppCompatActivity {
     private Building windFarm = new Building(5, -2, 15, 160, 0);
     private Building solarFarm = new Building(3, -2, 25, 210, 0);
     private Building waterTurbine = new Building(6, -1, 35, 260, 0);
-    private Building geothermalPlant = new Building(0,0,0,0,0);
-    private Building gasPlant = new Building (0,0,0,0,0);
+    private Building geothermalPlant = new Building(3,-1,8,100,0);
+    private Building gasPlant = new Building (2,-1,5,120,0);
     //not green
     private Building oilRig = new Building(12, 7, 40, 150, 0);
     private Building coalPlant = new Building(10, 5, 35, 125, 0);
@@ -36,6 +36,7 @@ public class GameState extends AppCompatActivity {
     //
 
     public static Country gameStart(int cID){
+        country.setcID(cID);
         month = 1;
         year = 1;
         game = true;
@@ -94,7 +95,7 @@ public class GameState extends AppCompatActivity {
         //Country data values calculations
         //energy value is also adjusted with on purchase action
         country.setPollution(country.getPollution() + 5);
-        //Country data values calculations - INCOMPLETE, needs income value to be adjusted by onPurchase building action
+        //Country data values calculations
         //energy value is also adjusted with on purchase action
         if (country.getPollution() > 20){      //checks if pollution is above the threshold for
             country.setTemperature(country.getTemperature() + country.getPollution()/20);         // increasing average temperature
@@ -106,6 +107,8 @@ public class GameState extends AppCompatActivity {
         }
 
         country.setMoney(country.getMoney() + country.getIncome()); //adds income to treasury
+
+        country.energyNeedCalc(country.getcID(), year);
 
         if(country.getTemperature() > 109){
             chickenDinner = true;
