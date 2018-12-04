@@ -6,10 +6,10 @@ import io.realm.RealmObject;
 
 public class Country extends RealmObject implements Serializable {
 
-    private int pollution, money, income, energy, energyNeed, buildingLimit, buildingCount;
+    private int pollution, money, income, energy, energyNeed, buildingLimit, buildingCount, cID;
     private int temperature;
 
-  /*  public int energyNeedCalc(int cID, int e){
+    public int energyNeedCalc(int cID, int e){
         double i = 1;
         switch (cID){
             case 0://USA
@@ -19,7 +19,7 @@ public class Country extends RealmObject implements Serializable {
         }
         return (int)(i * e);
     }
-*/
+
     public void setEnergyNeed(int energyNeed){
         this.energyNeed = energyNeed;
     }
@@ -82,6 +82,14 @@ public class Country extends RealmObject implements Serializable {
 
     public int getBuildingCount(){
         return buildingCount;
+    }
+
+    public void setcID(int cID){
+        this.cID = cID;
+    }
+
+    public int getcID(){
+        return cID;
     }
 }
 
