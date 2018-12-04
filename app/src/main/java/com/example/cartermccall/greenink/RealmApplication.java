@@ -3,6 +3,7 @@ package com.example.cartermccall.greenink;
 import android.app.Application;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class RealmApplication extends Application {
     @Override
@@ -10,5 +11,7 @@ public class RealmApplication extends Application {
         super.onCreate();
 
         Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder().name("myrealm.realm").schemaVersion(1).build();
+        Realm.setDefaultConfiguration(config);
     }
 }
