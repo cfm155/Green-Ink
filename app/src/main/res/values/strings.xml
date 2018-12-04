@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Green Ink</string>
+    <string name="app_name">GreenEarth</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="menu">Menu</string>
     <string name="save">Save Game</string>
