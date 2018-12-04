@@ -3,4 +3,6 @@
     <string name="title_activity_game">GameActivity</string>
     <string name="menu">Menu</string>
     <string name="save">Save Game</string>
+    <string name="title_activity_end_win">EndWinActivity</string>
+    <string name="title_activity_end_lose">EndLoseActivity</string>
 </resources>

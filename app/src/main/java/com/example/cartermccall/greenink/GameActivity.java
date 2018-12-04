@@ -26,7 +26,7 @@ import static com.example.cartermccall.greenink.GameState.country;
 
 public class GameActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar toolbar;
-    private Button statsButton, upgradesButton, nextTurnButton;
+    private Button statsButton, upgradesButton, nextTurnButton, EndWinButton, EndLoseButton;
     private ImageView map;
     private int currentTemp, currentPoll, currentEnergy, currentMoney;
     private int red, green, orange, mapColor;
@@ -53,7 +53,7 @@ public class GameActivity extends AppCompatActivity {
         currentMoney = country.getMoney();
 
         dangerView = (TextView) findViewById(R.id.danger_view);
-        if(dangerCount < 20){
+        if (dangerCount < 20) {
             dangerView.setText("Danger Countdown: " + dangerCount + " months");
         }
 
@@ -117,12 +117,33 @@ public class GameActivity extends AppCompatActivity {
                 energyView.setText("Energy: " + currentEnergy);
                 moneyView.setText("Money: " + currentMoney);
 
-                if(dangerCount < 21){
+                if (dangerCount < 21) {
                     dangerView.setText("Danger Countdown: " + dangerCount + " months");
                 }
+
             }
         });
 
+        // return to main menu after final screen
+        EndWinButton = (Button) findViewById(R.id.win_button);
+        EndWinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+        EndLoseButton = (Button) findViewById(R.id.win_button);
+        EndLoseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+
+        });
     }
 
     @Override
