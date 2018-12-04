@@ -135,7 +135,7 @@ public class GameActivity extends AppCompatActivity {
 
         });
 
-        EndLoseButton = (Button) findViewById(R.id.win_button);
+        EndLoseButton = (Button) findViewById(R.id.lose_button);
         EndLoseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
