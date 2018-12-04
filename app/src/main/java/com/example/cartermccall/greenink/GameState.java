@@ -1,5 +1,6 @@
 package com.example.cartermccall.greenink;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -119,15 +120,15 @@ public class GameState extends AppCompatActivity {
         }
 
         /*
-        // TODO:
-        // 1. link win/lose conditions with GameActivity so you actually go to end screens when
-        //    the conditions are met (either instantly OR on next time advanceTurn() is called)
-        // 2. wipe game data after a game ends so new game doesn't load the same one
+         TODO:
+         1. link win/lose conditions with GameActivity so you actually go to end screens when
+            the conditions are met (either instantly OR on next time advanceTurn() is called)
+         2. wipe game data after a game ends so new game doesn't load the same one
         */
 
         if (!game){                 // The game ends after a turn when game is set to false,
             if (chickenDinner){ // what happens when you win (go to end-win screen)
-                //Intent intent = new Intent (GameState.this, EndWinActivity.class);
+                //Intent intent = new Intent(getBaseContext(), EndWinActivity.class);
                 //startActivity(intent);
             }
             else{ // what happens when you lose (go to end-lose screen)
