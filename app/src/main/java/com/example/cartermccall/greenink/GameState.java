@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 
 public class GameState extends AppCompatActivity {
 
@@ -16,16 +18,17 @@ public class GameState extends AppCompatActivity {
 
     //Buildings - needs balancing and realism checks on the numbers.  More buildings  c - cost, q - quantity
     //Green
-    private Building windFarm = new Building(5, -2, 15, 160, 0);
-    private Building solarFarm = new Building(3, -2, 25, 210, 0);
-    private Building waterTurbine = new Building(6, -1, 35, 260, 0);
-    private Building geothermalPlant = new Building(3,-1,8,100,0);
-    private Building gasPlant = new Building (2,-1,5,120,0);
+    private static Building windFarm = new Building(5, -2, 15, 160, 0);
+    private static Building solarFarm = new Building(3, -2, 25, 210, 0);
+    private static Building waterTurbine = new Building(6, -1, 35, 260, 0);
+    private static Building geothermalPlant = new Building(3,-1,8,100,0);
+    private static Building gasPlant = new Building (2,-1,5,120,0);
     //not green
-    private Building oilRig = new Building(12, 7, 40, 150, 0);
-    private Building coalPlant = new Building(10, 5, 35, 125, 0);
-    private Building nuclearPlant = new Building(15, 10, 200, 300, 0);
+    private static Building oilRig = new Building(12, 7, 40, 150, 0);
+    private static Building coalPlant = new Building(10, 5, 35, 125, 0);
+    private static Building nuclearPlant = new Building(15, 10, 200, 300, 0);
     //
+    private static Building[] buildings;
 
     //Policies - don't have a class because what they all do could be vastly different,
     //toggled and executed with purchase policy switch case method, which is accessed by the
@@ -41,6 +44,16 @@ public class GameState extends AppCompatActivity {
         year = 1;
         game = true;
         dangerCount = 21;
+        buildings = new Building[8];
+        buildings[0] = windFarm;
+        buildings[1] = solarFarm;
+        buildings[2] = waterTurbine;
+        buildings[3] = geothermalPlant;
+        buildings[4] = gasPlant;
+        buildings[5] = oilRig;
+        buildings[6] = coalPlant;
+        buildings[7] = nuclearPlant;
+
 
         //cID is the id by which the country is identified
         //country constructor needs starting values for:
@@ -56,6 +69,7 @@ public class GameState extends AppCompatActivity {
                 country.setEnergy(0);
                 country.setIncome(25);
                 country.setcID(cID);
+                country.setQuantities(8);
                 return country;
             case 1://Brazil
                 country = new Country();
@@ -65,6 +79,7 @@ public class GameState extends AppCompatActivity {
                 country.setEnergy(0);
                 country.setIncome(20);
                 country.setcID(cID);
+                country.setQuantities(8);
                 return country;
             default://Third world country
                 country = new Country();
@@ -74,6 +89,7 @@ public class GameState extends AppCompatActivity {
                 country.setEnergy(0);
                 country.setIncome(15);
                 country.setcID(cID);
+                country.setQuantities(8);
                 return country;
         }
     }
@@ -165,78 +181,17 @@ public class GameState extends AppCompatActivity {
     }
 
     public void purchaseBuilding(int building) {
-        if (country.getBuildingCount() < country.getBuildingLimit()) {
-            Building construction = new Building(0, 0, 0, 0, 0);
-            for (int i = 0; i < 2; i++) {
-                switch (building) {
-                    case 0://wind farm
-                        if (i == 0) {
-                            construction = windFarm;
-                        } else {
-                            windFarm = construction;
-                        }
-                    case 1://solar farm
-                        if (i == 0) {
-                            construction = solarFarm;
-                        } else {
-                            solarFarm = construction;
-                        }
-                    case 2://water turbine
-                        if (i == 0) {
-                            construction = waterTurbine;
-                        } else {
-                            waterTurbine = construction;
-                        }
-                    case 3://geothermal plant
-                        if (i == 0) {
-                            construction = geothermalPlant;
-                        } else {
-                            geothermalPlant = construction;
-                        }
-                    case 4://gas plant
-                        if (i == 0) {
-                            construction = gasPlant;
-                        } else {
-                            gasPlant = construction;
-                        }
-                    case 5://oil rig
-                        if (i == 0) {
-                            construction = oilRig;
-                        } else {
-                            oilRig = construction;
-                        }
-                    case 6://coal plant
-                        if (i == 0) {
-                            construction = coalPlant;
-                        } else {
-                            coalPlant = construction;
-                        }
-                    case 7://nuclear plant
-                        if (i == 0) {
-                            if (policyNuclearPower) {
-                                construction = nuclearPlant;
-                            } else {
-                                //need nuclear power policy toast
-                            }
-                        } else {
-                            nuclearPlant = construction;
-                        }
-                        if (0 < building && building < 7 && i == 0) {
-                            if (country.getBuildingCount() < country.getBuildingLimit()) {
-                                if (country.getMoney() > construction.getCost()) {
-                                    construction.setIsOwned(true);
-                                    construction.setQuantity((construction.getQuantity() + 1));
-                                    country.setPollution(country.getPollution() + construction.getPollutionOutput());
-                                    country.setEnergy(country.getEnergy() + construction.getEnergyOutput());
-                                    country.setIncome(country.getIncome() + construction.getIncomeOutput());
-                                    country.setMoney(country.getMoney() - construction.getCost());
-                                }
-                            }
-                        }
-                }
-            }
-        } else {
-            //already at max buildings toast
+        Building current = buildings[building];
+        if(country.getMoney() < current.getCost()){
+            //not enough money
+        }
+        else{
+            country.setMoney(country.getMoney() - current.getCost());
+            country.setQuantity(building, current.getQuantity() + 1);
+            buildings[building].setQuantity(current.getQuantity() + 1);
+            country.setPollution(country.getPollution() + current.getPollutionOutput());
+            country.setIncome(country.getIncome() + current.getIncomeOutput());
+            country.setEnergy(country.getEnergy() + current.getEnergyOutput());
         }
     }
 

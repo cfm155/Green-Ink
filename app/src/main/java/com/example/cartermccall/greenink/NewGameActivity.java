@@ -5,13 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import static com.example.cartermccall.greenink.GameState.country;
 
 import static com.example.cartermccall.greenink.GameState.gameStart;
 
 public class NewGameActivity extends AppCompatActivity {
 
     private Button backButton, easyButton, mediumButton, hardButton;
-    private Country country;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +23,6 @@ public class NewGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 country = gameStart(0);
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
-                intent.putExtra("country", country);
                 startActivity(intent);
             }
         });
@@ -34,7 +33,6 @@ public class NewGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 country = gameStart(1);
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
-                intent.putExtra("country", country);
                 startActivity(intent);
             }
         });
@@ -45,7 +43,6 @@ public class NewGameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 country = gameStart(2);
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
-                intent.putExtra("country", country);
                 startActivity(intent);
             }
         });
