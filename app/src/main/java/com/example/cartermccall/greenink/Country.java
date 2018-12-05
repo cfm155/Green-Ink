@@ -2,12 +2,14 @@ package com.example.cartermccall.greenink;
 
 import java.io.Serializable;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 
 public class Country extends RealmObject implements Serializable {
 
     private int pollution, money, income, energy, energyNeed, buildingLimit, buildingCount, cID;
     private int temperature;
+    private RealmList<RealmInt> quantities = new RealmList<RealmInt>();
 
     public int energyNeedCalc(int cID, int e){
         double i = 1;
@@ -90,6 +92,24 @@ public class Country extends RealmObject implements Serializable {
 
     public int getcID(){
         return cID;
+    }
+
+    public RealmList<RealmInt> getQuantities() {
+        return quantities;
+    }
+
+    public void setQuantities(int length) {
+        for(int i = 0; i < length; i++){
+            quantities.add(new RealmInt(0));
+        }
+    }
+
+    public void  setQuantity(int index, int value){
+        quantities.set(index, new RealmInt(value));
+    }
+
+    public int getQuantity(int index){
+        return quantities.get(index).getVal();
     }
 }
 

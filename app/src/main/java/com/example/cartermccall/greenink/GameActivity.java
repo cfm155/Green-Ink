@@ -46,7 +46,6 @@ public class GameActivity extends AppCompatActivity {
         green = Color.parseColor("#00A14B");
         orange = getOrange();
 
-        country = (Country) getIntent().getSerializableExtra("country");
         currentTemp = country.getTemperature();
         currentPoll = country.getPollution();
         currentEnergy = country.getEnergy();
