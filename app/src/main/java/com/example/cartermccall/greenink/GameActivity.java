@@ -26,7 +26,7 @@ import static com.example.cartermccall.greenink.GameState.country;
 
 public class GameActivity extends AppCompatActivity {
     private android.support.v7.widget.Toolbar toolbar;
-    private Button statsButton, upgradesButton, nextTurnButton, EndWinButton, EndLoseButton;
+    private Button statsButton, upgradesButton, nextTurnButton;
     private ImageView map;
     private int currentTemp, currentPoll, currentEnergy, currentMoney;
     private int red, green, orange, mapColor;
@@ -100,7 +100,16 @@ public class GameActivity extends AppCompatActivity {
         nextTurnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameState.advanceTurn();
+                if (!GameState.advanceTurn()){                 // The game ends after a turn when game is set to false,
+                    if (GameState.chickenDinner){ // what happens when you win (go to end-win screen)
+                        Intent intent = new Intent(v.getContext(), EndWinActivity.class);
+                        startActivity(intent);
+                    }
+                    else{ // what happens when you lose (go to end-lose screen)
+                        Intent intent = new Intent (v.getContext(), EndLoseActivity.class);
+                        startActivity(intent);
+                    }
+                }
                 currentTemp = country.getTemperature();
                 tempView.setText("Temperature: " + currentTemp);
                 mapColor = findMapColor(currentTemp);
@@ -124,26 +133,7 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        // return to main menu after final screen
-        EndWinButton = (Button) findViewById(R.id.win_button);
-        EndWinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                startActivity(intent);
-            }
 
-        });
-
-        EndLoseButton = (Button) findViewById(R.id.lose_button);
-        EndLoseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                startActivity(intent);
-            }
-
-        });
     }
 
     @Override

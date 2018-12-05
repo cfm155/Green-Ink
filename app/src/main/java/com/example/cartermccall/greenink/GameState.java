@@ -37,7 +37,6 @@ public class GameState extends AppCompatActivity {
     //
 
     public static Country gameStart(int cID){
-        country.setcID(cID);
         month = 1;
         year = 1;
         game = true;
@@ -56,6 +55,7 @@ public class GameState extends AppCompatActivity {
                 country.setMoney(500);
                 country.setEnergy(0);
                 country.setIncome(25);
+                country.setcID(cID);
                 return country;
             case 1://Brazil
                 country = new Country();
@@ -64,6 +64,7 @@ public class GameState extends AppCompatActivity {
                 country.setMoney(350);
                 country.setEnergy(0);
                 country.setIncome(20);
+                country.setcID(cID);
                 return country;
             default://Third world country
                 country = new Country();
@@ -72,11 +73,12 @@ public class GameState extends AppCompatActivity {
                 country.setMoney(200);
                 country.setEnergy(0);
                 country.setIncome(15);
+                country.setcID(cID);
                 return country;
         }
     }
 
-    public static void advanceTurn() {
+    public static boolean advanceTurn() {
         //advances turn and checks values for game state
 
         //advances the date and checks for win condition
@@ -102,17 +104,13 @@ public class GameState extends AppCompatActivity {
             country.setTemperature(country.getTemperature() + country.getPollution()/20);         // increasing average temperature
         }
 
-        if (country.getTemperature() >= 100){
-            lossCondition = "Global warming catastrophe";
-            game = false;
-        }
 
         country.setMoney(country.getMoney() + country.getIncome()); //adds income to treasury
 
         country.energyNeedCalc(country.getcID(), year);
 
         if(country.getTemperature() > 109){
-            chickenDinner = true;
+            lossCondition = "Global warming catastrophe";
             game = false;
         }
         if(country.getTemperature() > 99){
@@ -126,16 +124,7 @@ public class GameState extends AppCompatActivity {
          2. wipe game data after a game ends so new game doesn't load the same one
         */
 
-        if (!game){                 // The game ends after a turn when game is set to false,
-            if (chickenDinner){ // what happens when you win (go to end-win screen)
-                //Intent intent = new Intent(getBaseContext(), EndWinActivity.class);
-                //startActivity(intent);
-            }
-            else{ // what happens when you lose (go to end-lose screen)
-                //Intent intent = new Intent (GameState.this, EndLoseActivity.class);
-                //startActivity(intent);
-            }
-        }
+        return game;
     }
     //end advance turn
 
