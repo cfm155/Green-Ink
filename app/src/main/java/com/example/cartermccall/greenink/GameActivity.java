@@ -101,10 +101,12 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!GameState.advanceTurn()){                 // The game ends after a turn when game is set to false,
                     if (GameState.chickenDinner){ // what happens when you win (go to end-win screen)
+                        finish();
                         Intent intent = new Intent(v.getContext(), EndWinActivity.class);
                         startActivity(intent);
                     }
                     else{ // what happens when you lose (go to end-lose screen)
+                        finish();
                         Intent intent = new Intent (v.getContext(), EndLoseActivity.class);
                         startActivity(intent);
                     }
@@ -125,7 +127,7 @@ public class GameActivity extends AppCompatActivity {
                 energyView.setText("Energy: " + currentEnergy);
                 moneyView.setText("Money: " + currentMoney);
 
-                if (dangerCount < 21) {
+                if (dangerCount < 11) {
                     dangerView.setText("Danger Countdown: " + dangerCount + " months");
                 }
 

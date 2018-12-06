@@ -3,12 +3,16 @@ package com.example.cartermccall.greenink;
 public class Building {
 
     private int energyOutput, pollutionOutput, incomeOutput, cost, quantity;
+    private String name;
     private boolean isOwned;
 
-    public Building(int e, int p, int i, int c, int q){
+    public Building(int e, int p, int i, int c, int q, String n){
         setEnergyOutput(e);
         setIncomeOutput(i);
         setPollutionOutput(p);
+        setCost(c);
+        setQuantity(0);
+        setName(n);
     }
 
     public int getEnergyOutput() {
@@ -57,5 +61,13 @@ public class Building {
 
     public void setIsOwned(boolean isOwned) {
         this.isOwned = isOwned;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

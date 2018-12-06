@@ -9,11 +9,13 @@ import android.widget.Button;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
+import static com.example.cartermccall.greenink.GameState.buildings;
+import static com.example.cartermccall.greenink.GameState.country;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button tutorialButton, newGame, resumeGame;
     public static boolean save = false;
-    private Country country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +45,10 @@ public class MainActivity extends AppCompatActivity {
                     GameState.dangerCount = load.getDangerCount();
                     GameState.game = true;
                     country = load.getCountry();
+                    for(int i = 0; i < country.getQuantities().size(); i++){
+                        buildings[i].setQuantity(country.getQuantity(i));
+                    }
                     Intent intent = new Intent(v.getContext(), GameActivity.class);
-                    intent.putExtra("country", country);
                     startActivity(intent);
                 }
             }
