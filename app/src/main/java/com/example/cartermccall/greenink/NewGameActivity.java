@@ -27,27 +27,31 @@ public class NewGameActivity extends AppCompatActivity {
         easyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                country = gameStart(0);
-                Intent intent = new Intent(v.getContext(), GameActivity.class);
-                startActivity(intent);
+
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
+                                country = gameStart(0);
+                                Intent intent = new Intent(getBaseContext(), GameActivity.class);
+                                startActivity(intent);
 
 
                                 break;
 
+                            case DialogInterface.BUTTON_NEGATIVE:
 
+                                break;
                         }
                     }
                 };
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
-                builder.setMessage("Welcome to GreenEarth. Your goal is to save the world from urgent global warming. Take over as a world leader and help save the environment by lowering the global temperature and sea levels. You’ll invest in resources and energy, each with a set of consequences, as you manage your economy and industry. Choose wisely what resources to use, as the wrong choices could lead to global panic.")
-                        .setTitle("Welcome To GreenEarth!")
-                        .setPositiveButton("Continue", dialogClickListener).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(NewGameActivity.this);
+                builder.setMessage("Your goal is to save the world from urgent global warming. Take over as a world leader and help save the environment by lowering the global temperature and sea levels. You’ll invest in resources and energy, each with a set of consequences, as you manage your economy and industry. Choose wisely what resources to use, as the wrong choices could lead to global panic.")
+                        .setTitle("Welcome to GreenEarth!")
+                        .setPositiveButton("Continue", dialogClickListener)
+                        .setNegativeButton("Cancel", dialogClickListener).show();
             }
         });
 
@@ -55,9 +59,30 @@ public class NewGameActivity extends AppCompatActivity {
         mediumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                country = gameStart(1);
-                Intent intent = new Intent(v.getContext(), GameActivity.class);
-                startActivity(intent);
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                country = gameStart(1);
+                                Intent intent = new Intent(getBaseContext(), GameActivity.class);
+                                startActivity(intent);
+
+
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(NewGameActivity.this);
+                builder.setMessage("Your goal is to save the world from urgent global warming. Take over as a world leader and help save the environment by lowering the global temperature and sea levels. You’ll invest in resources and energy, each with a set of consequences, as you manage your economy and industry. Choose wisely what resources to use, as the wrong choices could lead to global panic.")
+                        .setTitle("Welcome to GreenEarth!")
+                        .setPositiveButton("Continue", dialogClickListener)
+                        .setNegativeButton("Cancel", dialogClickListener).show();
             }
         });
 
@@ -65,9 +90,30 @@ public class NewGameActivity extends AppCompatActivity {
         hardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                country = gameStart(2);
-                Intent intent = new Intent(v.getContext(), GameActivity.class);
-                startActivity(intent);
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                country = gameStart(2);
+                                Intent intent = new Intent(getBaseContext(), GameActivity.class);
+                                startActivity(intent);
+
+
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(NewGameActivity.this);
+                builder.setMessage("Your goal is to save the world from urgent global warming. Take over as a world leader and help save the environment by lowering the global temperature and sea levels. You’ll invest in resources and energy, each with a set of consequences, as you manage your economy and industry. Choose wisely what resources to use, as the wrong choices could lead to global panic.")
+                        .setTitle("Welcome to GreenEarth!")
+                        .setPositiveButton("Continue", dialogClickListener)
+                        .setNegativeButton("Cancel", dialogClickListener).show();
             }
         });
 
