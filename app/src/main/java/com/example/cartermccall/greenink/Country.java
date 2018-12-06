@@ -94,6 +94,14 @@ public class Country extends RealmObject implements Serializable {
         return cID;
     }
 
+    public int getCurrentPollution(){
+        int poll = 5;
+        for(int i = 0; i < GameState.buildings.length; i++){
+            poll += (quantities.get(i).getVal()*GameState.buildings[i].getPollutionOutput());
+        }
+        return poll;
+    }
+
     public RealmList<RealmInt> getQuantities() {
         return quantities;
     }

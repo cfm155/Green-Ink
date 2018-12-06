@@ -11,24 +11,24 @@ import java.util.ArrayList;
 
 public class GameState extends AppCompatActivity {
 
-    public static int year, month, dangerCount;
+    public static int year, month, dangerCount, victoryCount;
     public static boolean game = false, chickenDinner;//when game is set to false by any means,
     public static Country country;                              //the game will be over.
     private static String lossCondition;
 
     //Buildings - needs balancing and realism checks on the numbers.  More buildings  c - cost, q - quantity
     //Green
-    private static Building windFarm = new Building(5, -2, 15, 160, 0);
-    private static Building solarFarm = new Building(3, -2, 25, 210, 0);
-    private static Building waterTurbine = new Building(6, -1, 35, 260, 0);
-    private static Building geothermalPlant = new Building(3,-1,8,100,0);
-    private static Building gasPlant = new Building (2,-1,5,120,0);
+    private static Building windFarm = new Building(5, -2, 15, 160, 0, "Wind");
+    private static Building solarFarm = new Building(3, -2, 25, 210, 0, "Solar");
+    private static Building waterTurbine = new Building(6, -1, 35, 260, 0, "Water");
+    private static Building geothermalPlant = new Building(3,-1,8,100,0, "Geothermal");
+    private static Building gasPlant = new Building (2,-1,5,120,0, "Gas");
     //not green
-    private static Building oilRig = new Building(12, 7, 40, 150, 0);
-    private static Building coalPlant = new Building(10, 5, 35, 125, 0);
-    private static Building nuclearPlant = new Building(15, 10, 200, 300, 0);
+    private static Building oilRig = new Building(12, 7, 40, 150, 0, "Oil");
+    private static Building coalPlant = new Building(10, 5, 35, 125, 0, "Coal");
+    private static Building nuclearPlant = new Building(15, 10, 200, 300, 0, "Nuclear");
     //
-    private static Building[] buildings;
+    public static Building[] buildings;
 
     //Policies - don't have a class because what they all do could be vastly different,
     //toggled and executed with purchase policy switch case method, which is accessed by the
@@ -43,7 +43,8 @@ public class GameState extends AppCompatActivity {
         month = 1;
         year = 1;
         game = true;
-        dangerCount = 21;
+        dangerCount = 11;
+        victoryCount = 11;
         buildings = new Building[8];
         buildings[0] = windFarm;
         buildings[1] = solarFarm;
@@ -53,6 +54,8 @@ public class GameState extends AppCompatActivity {
         buildings[5] = oilRig;
         buildings[6] = coalPlant;
         buildings[7] = nuclearPlant;
+
+
 
 
         //cID is the id by which the country is identified
@@ -70,6 +73,7 @@ public class GameState extends AppCompatActivity {
                 country.setIncome(25);
                 country.setcID(cID);
                 country.setQuantities(8);
+                country.setBuildingCount(0);
                 return country;
             case 1://Brazil
                 country = new Country();
@@ -80,6 +84,7 @@ public class GameState extends AppCompatActivity {
                 country.setIncome(20);
                 country.setcID(cID);
                 country.setQuantities(8);
+                country.setBuildingCount(0);
                 return country;
             default://Third world country
                 country = new Country();
@@ -90,6 +95,7 @@ public class GameState extends AppCompatActivity {
                 country.setIncome(15);
                 country.setcID(cID);
                 country.setQuantities(8);
+                country.setBuildingCount(0);
                 return country;
         }
     }
@@ -106,14 +112,14 @@ public class GameState extends AppCompatActivity {
             if (year < 10){
                 year++;
             }
-            else if (year == 9 && month == 11){
+            else if (year == 10 && month == 12){
                 chickenDinner = true;
                 game = false;
             }
         }
         //Country data values calculations
         //energy value is also adjusted with on purchase action
-        country.setPollution(country.getPollution() + 5);
+        country.setPollution(country.getPollution() + country.getCurrentPollution());
         //Country data values calculations
         //energy value is also adjusted with on purchase action
         if (country.getPollution() > 20){      //checks if pollution is above the threshold for
@@ -180,18 +186,21 @@ public class GameState extends AppCompatActivity {
         }
     }
 
-    public void purchaseBuilding(int building) {
+    public static boolean purchaseBuilding(int building) {
         Building current = buildings[building];
         if(country.getMoney() < current.getCost()){
             //not enough money
+            return false;
         }
         else{
             country.setMoney(country.getMoney() - current.getCost());
             country.setQuantity(building, current.getQuantity() + 1);
+            country.setBuildingCount(country.getBuildingCount() + 1);
             buildings[building].setQuantity(current.getQuantity() + 1);
             country.setPollution(country.getPollution() + current.getPollutionOutput());
             country.setIncome(country.getIncome() + current.getIncomeOutput());
             country.setEnergy(country.getEnergy() + current.getEnergyOutput());
+            return true;
         }
     }
 
