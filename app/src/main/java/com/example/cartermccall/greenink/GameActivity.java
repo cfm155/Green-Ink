@@ -52,7 +52,7 @@ public class GameActivity extends AppCompatActivity {
         currentMoney = country.getMoney();
 
         dangerView = (TextView) findViewById(R.id.danger_view);
-        if (dangerCount < 20) {
+        if (dangerCount < 11) {
             dangerView.setText("Danger Countdown: " + dangerCount + " months");
         }
 
